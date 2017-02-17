@@ -13,14 +13,11 @@ titanicnew$age[is.na(titanicnew$age)] = mean(titanicnew$age,trim = 0, na.rm = TR
 summary(titanicnew$age)
 summary(titanicnew$boat)
 str(titanicnew$boat)
-summarise(titanicnew$boat)
 levels(titanicnew$boat)
-count(titanicnew$boat)
-as.character(titanicnew$boat)
-titanicnew$boat = sub("^$","NA", titanicnew$boat)
+titanicnew$boat[which(grepl("^$",titanicnew$boat))] <- NA
 levels(as.factor(titanicnew$boat))
 str(titanicnew$cabin)
 titanicnew$has_cabin_number = titanicnew$cabin
-titanicnew$has_cabin_number = ifelse(grepl("[[alnum:]]",titanicnew$has_cabin_number),1,0)
+titanicnew$has_cabin_number = ifelse(grepl("[[:alnum:]]",titanicnew$has_cabin_number),1,0)
 titanicnew$has_cabin_number
 write.csv(titanicnew, file ="titanic_clean.csv")
